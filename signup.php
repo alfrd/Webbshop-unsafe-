@@ -7,7 +7,9 @@ $password = $_REQUEST['password'];
 $firstname = $_REQUEST['firstname'];
 $lastname = $_REQUEST['lastname'];
 $address = $_REQUEST['address'];
+
 $db->openConnection();
+//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 $db->signUp($email, $password, $firstname, $lastname, $address);
 $db->closeConnection();
 header("Location: index.php");

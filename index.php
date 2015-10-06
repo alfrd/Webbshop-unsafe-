@@ -1,8 +1,7 @@
 <?php
     require_once('webbshop-php.php');
-    session_start();
 
-    
+    session_start();
     if($_SESSION['db'] == null) {
         $db = new Database("localhost", "host", "host", "webbshopDB", "3306");
     } else {
@@ -29,9 +28,10 @@
         }
     }
 
-
+    
     if(null == $_SESSION['user_logged_in']) {
         header("Location: login.html");
+        exit();
     } else {
         $ip = $_SERVER["REMOTE_ADDR"];
         if($db->userCheck($_SESSION['user_logged_in'], $ip) == false) {

@@ -6,7 +6,8 @@
 	$db = $_SESSION['db'];
 	$db->openConnection();
 	if($_POST['postText'] != null and $_SESSION['CSRFTokenBook'] == $_POST['CSRFTokenBook']) {
-		$postText = htmlspecialchars($_POST['postText'], ENT_QUOTES, 'UTF-8');
+		//$postText = htmlspecialchars($_POST['postText'], ENT_QUOTES, 'UTF-8');
+		$postText = $_POST['postText'];
 		$db->postPost($_SESSION['user_logged_in'], $postText);
 	}
 	$_SESSION['CSRFTokenBook'] = hash('sha256', time());

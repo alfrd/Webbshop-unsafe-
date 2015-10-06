@@ -1,4 +1,3 @@
-//Glöm inte att ändra document root i httpd-ssl.conf
 <?php
 
 class Database {
@@ -117,13 +116,19 @@ class Database {
 	}
 
 	public function signUp($username, $password, $firstname, $lastname, $address) {
+
 			//$salt = '123';
 		$salt =  sha1(time());
 		$saltedpassword = hash('sha256', $password . $salt);
-		$sql = "insert into users values (?, ?, ?, ?, ?, ?, ?,?)";
+		
+		$sql = "insert into users values ('".$firstname."', '".$lastname."', '".$address."', '".$username."', '".$saltedpassword."', '".$salt."', 0, null)";
+		//$sql = "INSERT into Users VALUES ('bv', 'b', 'c', 'd', 'e', 'f', 0, null)";
 		try {
-			$result = $this->executeUpdate($sql, array($firstname, $lastname, $address, $username, $saltedpassword, $salt, 0, null));
+			//$result = $this->executeUpdate($sql, array($firstname, $lastname, $address, $username, $saltedpassword, $salt, 0, null));
+			//$result = $this->executeUpdate($sql, null);
+			$this->conn->query($sql);
 		}	catch(PDOException $e) {
+				echo $e->getMessage();
 				return false;
 		}
 		return true;
@@ -175,10 +180,11 @@ class Database {
 
 	public function postPost($email, $postText) {
 		$time = date('Y-m-d G:i:s');
-		$sql = "insert into Posts values (". $email. ",".$postText.",".$time.")";
-		
+		//$sql = "insert into Posts values (".$email.",".$postText.",".$time.")";
+		$sql = "insert into Posts values (?,?,?)";
 		try {
-			$result =  $this->executeUpdate($sql, null);
+			$result =  $this->executeUpdate($sql, array($email, $postText, $time));
+			//$result =  $this->executeUpdate($sql, null);
 		} catch(PDOException $e) {
 			return false;
 		}
