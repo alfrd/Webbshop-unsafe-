@@ -1,10 +1,6 @@
 <?php 
 require_once('webbshop-php.php');
 session_start();
-if($_SESSION['CSRFTokenCart'] != $_POST['CSRFTokenCart']) {
-    header("Location: cart.php");
-    exit();
-}
 $cart = $_SESSION['cart'];
 
 $db = $_SESSION['db'];

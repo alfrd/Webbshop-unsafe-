@@ -1,3 +1,4 @@
+//Glöm inte att ändra document root i httpd-ssl.conf
 <?php
 
 class Database {
@@ -173,10 +174,11 @@ class Database {
 	}
 
 	public function postPost($email, $postText) {
-		$sql = "insert into Posts values (?,?,?)";
 		$time = date('Y-m-d G:i:s');
+		$sql = "insert into Posts values (". $email. ",".$postText.",".$time.")";
+		
 		try {
-			$result =  $this->executeUpdate($sql, array($email, $postText, $time));
+			$result =  $this->executeUpdate($sql, null);
 		} catch(PDOException $e) {
 			return false;
 		}

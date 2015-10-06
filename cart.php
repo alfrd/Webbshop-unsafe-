@@ -5,7 +5,6 @@ $cart = $_SESSION['cart'];
 if($_POST['item_to_cart'] != null) {
    array_push($cart, $_POST['item_to_cart']); 
 }
-$_SESSION['CSRFTokenCart'] = hash('sha256', time());
 $db = $_SESSION['db'];
 $db->openConnection();
 $cartitems = $db->getCartItems($cart);
@@ -58,7 +57,6 @@ $_SESSION['cart'] = $cart;
 <div class="middle">
     <form action="receipt.php" method="post">
         <?php
-            echo "<input type='hidden' value=". $_SESSION['CSRFTokenCart'] . " name='CSRFTokenCart'>";
             echo "<input type='submit' value='buy'>"
 
         ?>
